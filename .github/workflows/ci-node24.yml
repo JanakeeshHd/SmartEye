@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline (Node.js 24 Native)
 
 on:
   push:
@@ -6,16 +6,13 @@ on:
   pull_request:
     branches: [main, develop]
 
-env:
-  NODE_OPTIONS: --no-warnings
-
 jobs:
   # Backend Tests and Build
   backend:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [22.x, 24.x]
     
     steps:
       - name: Checkout code
@@ -48,7 +45,7 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: backend-build-${{ matrix.node-version }}
+          name: backend-build-node-${{ matrix.node-version }}
           path: backend/dist
           if-no-files-found: ignore
           retention-days: 5
@@ -91,7 +88,7 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: frontend-build-${{ matrix.node-version }}
+          name: frontend-build-node-${{ matrix.node-version }}
           path: frontend/dist
           if-no-files-found: ignore
           retention-days: 5
@@ -101,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.9', '3.10', '3.11']
+        python-version: ['3.10', '3.11', '3.12']
     
     steps:
       - name: Checkout code
@@ -132,7 +129,7 @@ jobs:
           pip install mypy
           mypy main.py --ignore-missing-imports || true
 
-  # Integration Tests (optional)
+  # Integration Tests
   integration:
     runs-on: ubuntu-latest
     needs: [backend, frontend]
@@ -142,10 +139,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Setup Node.js
+      - name: Setup Node.js 24.x
         uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: '24.x'
           cache: 'npm'
           cache-dependency-path: backend/package-lock.json
       
