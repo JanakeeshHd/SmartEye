@@ -154,5 +154,10 @@ jobs:
           cd backend && npm ci
           cd ../frontend && npm ci
       
-      - name: Run integration tests
-        run: npm run test:integration --if-present --workspaces
+      - name: Run backend integration tests
+        working-directory: backend
+        run: npm run test:integration --if-present
+      
+      - name: Run frontend integration tests
+        working-directory: frontend
+        run: npm run test:integration --if-present
