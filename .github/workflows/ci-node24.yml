@@ -26,20 +26,16 @@ jobs:
           cache-dependency-path: backend/package-lock.json
       
       - name: Install backend dependencies
-        working-directory: backend
-        run: npm ci
+        run: npm --prefix backend ci
       
       - name: Lint backend code
-        working-directory: backend
-        run: npm run lint --if-present
+        run: npm --prefix backend run lint --if-present
       
       - name: Build backend
-        working-directory: backend
-        run: npm run build --if-present
+        run: npm --prefix backend run build --if-present
       
       - name: Run backend tests
-        working-directory: backend
-        run: npm test --if-present
+        run: npm --prefix backend test --if-present
       
       - name: Upload backend artifacts
         if: success()
@@ -69,20 +65,16 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       
       - name: Install frontend dependencies
-        working-directory: frontend
-        run: npm ci
+        run: npm --prefix frontend ci
       
       - name: Lint frontend code
-        working-directory: frontend
-        run: npm run lint --if-present
+        run: npm --prefix frontend run lint --if-present
       
       - name: Build frontend
-        working-directory: frontend
-        run: npm run build
+        run: npm --prefix frontend run build
       
       - name: Run frontend tests
-        working-directory: frontend
-        run: npm test --if-present
+        run: npm --prefix frontend test --if-present
       
       - name: Upload frontend build
         if: success()
@@ -148,13 +140,11 @@ jobs:
       
       - name: Install dependencies
         run: |
-          cd backend && npm ci
-          cd ../frontend && npm ci
+          npm --prefix backend ci
+          npm --prefix frontend ci
       
       - name: Run backend integration tests
-        working-directory: backend
-        run: npm run test:integration --if-present
+        run: npm --prefix backend run test:integration --if-present
       
       - name: Run frontend integration tests
-        working-directory: frontend
-        run: npm run test:integration --if-present
+        run: npm --prefix frontend run test:integration --if-present

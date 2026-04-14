@@ -24,16 +24,14 @@ jobs:
       
       - name: Install dependencies
         run: |
-          cd backend && npm ci
-          cd ../frontend && npm ci
+          npm --prefix backend ci
+          npm --prefix frontend ci
       
       - name: Build backend
-        working-directory: backend
-        run: npm run build --if-present
+        run: npm --prefix backend run build --if-present
       
       - name: Build frontend
-        working-directory: frontend
-        run: npm run build
+        run: npm --prefix frontend run build
       
       - name: Upload deployment artifacts
         uses: actions/upload-artifact@v4
