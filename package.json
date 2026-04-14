@@ -1,0 +1,11 @@
+{
+  "name": "smarteye-monorepo",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "test:integration": "npm --prefix backend run test:integration --if-present && npm --prefix frontend run test:integration --if-present"
+  }
+}
