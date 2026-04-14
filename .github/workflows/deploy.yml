@@ -8,10 +8,20 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
       
       - name: Setup Node.js 24.x
         uses: actions/setup-node@v4
@@ -31,20 +41,20 @@ jobs:
         run: npm --prefix backend run build --if-present
       
       - name: Build frontend
+        env:
+          GITHUB_PAGES: true
         run: npm --prefix frontend run build
       
-      - name: Upload deployment artifacts
-        uses: actions/upload-artifact@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: production-build
-          path: |
-            backend/dist
-            frontend/dist
-          if-no-files-found: ignore
-          retention-days: 30
+          path: ./frontend/dist
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
       
       - name: Deploy notification
         run: |
-          echo "Build successful - ready for deployment"
-          echo "Backend artifacts: backend/dist"
-          echo "Frontend artifacts: frontend/dist"
+          echo "Build successful - deployed to GitHub Pages"
+          echo "Frontend artifact: frontend/dist"

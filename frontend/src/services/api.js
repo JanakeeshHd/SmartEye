@@ -24,8 +24,9 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('smarteye_token');
       localStorage.removeItem('smarteye_user');
-      if (window.location.pathname !== '/auth') {
-        window.location.href = '/auth';
+      const authPath = `${import.meta.env.BASE_URL}auth`;
+      if (window.location.pathname !== authPath) {
+        window.location.href = authPath;
       }
     }
     return Promise.reject(error);

@@ -57,7 +57,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm group-hover:scale-110 transition-transform overflow-hidden shadow-lg border border-white/10">
-              <img src="/logo.png" alt="Smarteye Logo" className="w-full h-full object-cover" />
+              <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Smarteye Logo" className="w-full h-full object-cover" />
             </div>
             <span className="text-lg font-bold gradient-text hidden sm:block">Smarteye</span>
           </Link>

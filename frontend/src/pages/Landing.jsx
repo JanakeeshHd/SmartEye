@@ -43,7 +43,7 @@ export default function Landing() {
         <div className="relative max-w-7xl mx-auto text-center">
           <div className="flex justify-center mb-6 animate-fade-in">
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary-500 to-purple-500 flex items-center justify-center p-0.5 overflow-hidden shadow-2xl border-2 border-white/20">
-              <img src="/logo.png" alt="Smarteye Logo" className="w-full h-full object-cover" />
+              <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Smarteye Logo" className="w-full h-full object-cover" />
             </div>
           </div>
           <div className="inline-flex items-center gap-2 px-4 py-2 glass-light rounded-full text-sm text-primary-300 mb-8 animate-fade-in">

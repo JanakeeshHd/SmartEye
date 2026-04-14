@@ -39,7 +39,7 @@ export default function Auth() {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-primary-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl mb-4 overflow-hidden shadow-xl border-2 border-white/20">
-              <img src="/logo.png" alt="Smarteye Logo" className="w-full h-full object-cover" />
+              <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Smarteye Logo" className="w-full h-full object-cover" />
             </div>
             <h2 className="text-2xl font-bold text-white">{mode === 'login' ? 'Welcome Back' : 'Create Account'}</h2>
             <p className="text-dark-400 text-sm mt-1">{mode === 'login' ? 'Sign in to your Smarteye account' : 'Join Smarteye to report and track issues'}</p>
